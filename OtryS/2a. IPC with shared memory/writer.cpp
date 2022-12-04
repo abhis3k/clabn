@@ -6,16 +6,18 @@ using namespace std;
 
 int main(){
 
-    key_t key = ftok("shmfile",65);
+    key_t key;
+    key = 4567;
 
-    int shmid = shmget(key, 1024, 1066|IPC_CREAT);
+    int shmid = shmget(key, 1024, 0666|IPC_CREAT);
 
     char *str = (char*) shmat(shmid,(void*)0,0);
 
-    printf("Received message: %s", str);
+    printf("Enter the date: ");
+    gets(str);
+    printf("\nSent data: %s",str);
 
     shmdt(str);
-    shmctl(shmid, IPC_RMID, NULL);
 
     return 0;
 
